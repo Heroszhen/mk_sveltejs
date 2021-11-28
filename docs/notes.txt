@@ -1,0 +1,7 @@
+npm i concurrently --save-dev
+npm i express --save-dev
+npm i nodemon --save-dev
+npm i svelte-navigator
+npm i svelte-bootstrap-icons
+
+template : http://www.meinuzi.com/

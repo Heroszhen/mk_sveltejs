@@ -1,0 +1,46 @@
+img{
+	width:100%;
+	height:auto;
+}
+
+a{
+	text-decoration: none;
+}
+
+.undernav{
+	padding-top:66px;
+}
+
+.pointer{
+	cursor: pointer;
+}
+
+/*meinuzi---start*/
+
+.meinuzi-color{
+	color:#FF88af;
+}
+.meinuzi-background-color{
+	background-color:#FF88af;
+	color:white;
+}
+
+.container{
+	background-color: white;
+}
+.container2{
+	background-color: transparent;
+}
+
+main{
+	background-color:#eee !important;
+	min-height:100vh;
+}
+
+/*meinuzi---end*/
+
+@media (min-width:768px) {
+	.container{
+		width:72% !important;
+	}
+}
