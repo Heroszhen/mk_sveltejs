@@ -9,6 +9,7 @@
     let allvideos = [];
     const unsubscribe = DataStore.subscribe(value => {
 		allvideos = value["videos"];
+        allvideos.reverse();
 	});
 	onDestroy(unsubscribe);
 </script>
@@ -43,5 +44,15 @@
         margin-bottom:40px;
         width:100%;
         position:relative;
+    }
+    @media(max-width:767px){
+        #wrap_videos{
+            column-count: 3;
+        }
+    }
+    @media(max-width:575px){
+        #wrap_videos{
+            column-count: 2;
+        }
     }
 </style>

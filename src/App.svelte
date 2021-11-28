@@ -64,6 +64,7 @@
 </script>
 
 <Router primary={false}>
+	<header>
 	<nav class="navbar navbar-expand-md fixed-top">
 		<div class="container">
 			<div class="navbar-brand">美女</div>
@@ -89,6 +90,7 @@
 			</div>
 		</div>
 	</nav>
+	</header>
 	<main class="undernav">
 		<Route path="/">
 			<Home />

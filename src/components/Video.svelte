@@ -9,8 +9,7 @@
     const unsubscribe = DataStore.subscribe(value => {
 		for(let entry of value["videos"]){
             if(entry["id"] == id){
-                video = entry;
-
+                video = entry; console.log(video)
                 break;
             }
         }
@@ -34,13 +33,40 @@
 </script>
 
 <div id="video">
-    <div class="container">
+    <div class="container pb-2">
+        
         {#if video != null}
-            {#if video.videotype == 1}
-            <div>
-                {@html video.videourl}
+            <div class="text-center">
+                {#if video.videotype == 1}
+                    {@html video.videourl}
+                {/if}
+                {#if video.videotype == 2}
+                    {#if video.videourl.includes('amazon') || video.videourl.includes('aweme')}
+                        <video width="300" height="200" id="video1" controls>
+                            <source src="{video.videourl}" type="video/mp4">
+                            <source src="movie.ogg" type="video/ogg">
+                            <track src="captions_en.vtt" kind="captions" srclang="en" label="english_captions">
+                            <track src="captions_es.vtt" kind="captions" srclang="es" label="spanish_captions">
+                        </video>
+                    {:else}
+                        <a href="{video.siteurl}" target="_blank">
+                            <img src="{video.photourl}" alt="" id="image1">
+                        </a>
+                    {/if}
+                {/if}
+                {#if video.videotype == 3}
+                    <a href="{video.siteurl}" target="_blank">
+                        <img src="{video.photourl}" alt="">
+                    </a>
+                {/if}
             </div>
-            {/if}
+            <div class="mt-4 pe-2 ps-2">
+                <h4 class="fw-bold">{video.name}</h4>
+                <div class="fw-bold">{video.actressname}</div>
+                {#if video.description != null}
+                    <div>{@html video.description}</div>
+                {/if}
+            </div>
         {/if}
     </div>
 </div>
