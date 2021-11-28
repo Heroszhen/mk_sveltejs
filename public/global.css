@@ -14,6 +14,10 @@ a{
 .pointer{
 	cursor: pointer;
 }
+iframe{
+	width:100%;
+	height:auto;
+}
 
 /*meinuzi---start*/
 

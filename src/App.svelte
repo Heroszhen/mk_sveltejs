@@ -45,6 +45,15 @@
 				return data;
 			});
 		});
+
+		fetch(baseurl + "/mk/videos")
+		.then(response=>response.json())
+		.then(json=>{
+			DataStore.update(data=>{
+				data['videos'] = json["allvideos"];
+				return data;
+			});
+		});
 	}
 
 	
@@ -92,6 +101,9 @@
 		</Route>
 		<Route path="videos">
 			<Videos />
+		</Route>
+		<Route path="video/:id" let:params>
+			<Video id={params.id} />
 		</Route>
 	</main>
 </Router>

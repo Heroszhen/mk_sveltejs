@@ -6,7 +6,7 @@
     PageStore.set("photos");
     let allphotos = [];
     const unsubscribe = DataStore.subscribe(value => {
-		allphotos = value["photos"];console.log(allphotos)
+		allphotos = value["photos"];
 	});
 	onDestroy(unsubscribe);
 </script>
