@@ -115,7 +115,6 @@
 		box-shadow: 0 1px 3px rgb(0 0 0 / 30%);
 		padding-top:0;
 		padding-bottom:0;
-		height:56px;
 		background-color: white;
 	}
 	nav div.navbar-brand{
