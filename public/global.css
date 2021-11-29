@@ -57,3 +57,10 @@ main{
 		width:72% !important;
 	}
 }
+
+@media (max-width:767px) {
+	img#image1{
+		width:100% !important;
+		height: auto !important;
+	}
+}
