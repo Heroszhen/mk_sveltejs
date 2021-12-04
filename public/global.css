@@ -49,8 +49,14 @@ main{
 	background-color:#eee !important;
 	min-height:100vh;
 }
-
 /*meinuzi---end*/
+
+/*magnifier---start*/
+img.magnifier-image{
+	height:100% !important;
+	width:auto !important;
+}
+/*magnifier---end*/
 
 @media (min-width:768px) {
 	.container{
@@ -63,4 +69,11 @@ main{
 		width:100% !important;
 		height: auto !important;
 	}
+
+	/*magnifier---start*/
+	img.magnifier-image{
+		width:100% !important;
+		height:auto !important;
+	}
+	/*magnifier---end*/
 }

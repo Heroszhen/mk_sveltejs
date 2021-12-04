@@ -15,6 +15,7 @@
 
 	let baseurl = getBaseurl();
 	let page = "";
+	let btn_nav;
 	//developement on localhost
 	window.onload = () =>{
 		if(window.location.host.includes("localhost")){
@@ -56,6 +57,10 @@
 		});
 	}
 
+	function clickBtnnav(){
+		if(window.innerWidth <= 767)btn_nav.click();
+	}
+
 	
 	onMount(() => { // = onMount + beforeDestroy
 		//......
@@ -65,31 +70,31 @@
 
 <Router primary={false}>
 	<header>
-	<nav class="navbar navbar-expand-md fixed-top">
-		<div class="container">
-			<div class="navbar-brand">美女</div>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<List />
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item" class:active="{page==='home'}">
-						<Link to="/" class="nav-link">Accueil</Link>
-					</li>
-					<li class="nav-item" class:active="{page==='photos'}">
-						<Link to="photos" class="nav-link">Photos</Link>
-					</li>
-					<li class="nav-item" class:active="{page==='videos'}">
-						<Link to="videos" class="nav-link">Vidéos</Link>
-					</li>
-				</ul>
-				<form class="d-flex">
-					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-					<button class="btn btn-outline-success" type="submit">Search</button>
-				</form>
+		<nav class="navbar navbar-expand-md fixed-top">
+			<div class="container">
+				<div class="navbar-brand">美女</div>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" bind:this={btn_nav}>
+					<List />
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item" class:active="{page==='home'}" on:click="{()=>clickBtnnav()}">
+							<Link to="/" class="nav-link">Accueil</Link>
+						</li>
+						<li class="nav-item" class:active="{page==='photos'}" on:click="{()=>clickBtnnav()}">
+							<Link to="photos" class="nav-link">Photos</Link>
+						</li>
+						<li class="nav-item" class:active="{page==='videos'}" on:click="{()=>clickBtnnav()}">
+							<Link to="videos" class="nav-link">Vidéos</Link>
+						</li>
+					</ul>
+					<form class="d-flex">
+						<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+						<button class="btn btn-outline-success" type="submit">Search</button>
+					</form>
+				</div>
 			</div>
-		</div>
-	</nav>
+		</nav>
 	</header>
 	<main class="undernav">
 		<Route path="/">

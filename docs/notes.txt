@@ -3,5 +3,10 @@ npm i express --save-dev
 npm i nodemon --save-dev
 npm i svelte-navigator
 npm i svelte-bootstrap-icons
+npm i svelte-magnifier
 
 template : http://www.meinuzi.com/
+
+
+JS online
+https://www.programiz.com/javascript/online-compiler/

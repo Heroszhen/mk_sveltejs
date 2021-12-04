@@ -9,7 +9,7 @@
     const unsubscribe = DataStore.subscribe(value => {
 		for(let entry of value["videos"]){
             if(entry["id"] == id){
-                video = entry; console.log(video)
+                video = entry;
                 break;
             }
         }
