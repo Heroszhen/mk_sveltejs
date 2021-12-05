@@ -27,7 +27,7 @@
             if(action == 2)photoindex--;
             if(photoindex >= actress["mkphotos"].length)photoindex = 0;
             if(photoindex < 0)photoindex = actress["mkphotos"].length - 1;
-            window.scrollTo(photos_wrap.scrollLeft,0);
+            //window.scrollTo(photos_wrap.scrollLeft,0);
         } 
     }
 	
@@ -42,7 +42,7 @@
             let max = photos_wrap.scrollWidth - photos_wrap.clientWidth;
             step = photos_wrap.scrollLeft + step;
             if(step > max)step = max;
-        }console.log(step)
+        }
         photos_wrap.scrollTo(step, photos_wrap.scrollTop);
     }
 </script>
@@ -58,25 +58,8 @@
                         <div class="col-12">
                             <h3 class="text-center">{actress.name}</h3>
                         </div>
-                        <div class="col-6">
-                            <span class="pointer arrow" on:click="{()=>changeIndex(1)}">
-                                <ChevronLeft />
-                                Précédent
-                            </span>
-                        </div>
-                        <div class="col-6 text-end">
-                            <span class="pointer arrow" on:click="{()=>changeIndex(2)}">
-                                Suivant
-                                <ChevronRight />
-                            </span>
-                        </div>
-                        <div class="col-12 mt-2">
-                            <div class="pe-4 ps-4">
-                                <img src="{actress['mkphotos'][photoindex].photourl}" alt="" class="pointer" on:click="{()=>changeIndex(1)}">
-                            </div>
-                        </div>
                         {#if actress['mkphotos'].length > 1}
-                        <div class="col-12 mt-4">
+                        <div class="col-12 mb-3">
                             <div class="zcarousel">
                                 <div class="btn_arrow" on:click="{()=>scrollCarousel(1)}"><ChevronLeft /></div>
                                 <div class="photos_wrap" bind:this={photos_wrap}>
@@ -92,6 +75,23 @@
                             </div>
                         </div>
                         {/if}
+                        <div class="col-12 mt-2 mb-2">
+                            <div class="pe-4 ps-4">
+                                <img src="{actress['mkphotos'][photoindex].photourl}" alt="" class="pointer" on:click="{()=>changeIndex(1)}">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <span class="pointer arrow" on:click="{()=>changeIndex(1)}">
+                                <ChevronLeft />
+                                Précédent
+                            </span>
+                        </div>
+                        <div class="col-6 text-end">
+                            <span class="pointer arrow" on:click="{()=>changeIndex(2)}">
+                                Suivant
+                                <ChevronRight />
+                            </span>
+                        </div>
                     </div>
                     {/if}
                 </div>
@@ -137,7 +137,7 @@
         background-color:#f8b0c8;
         color:white;
         cursor: pointer;
-        height:120px;
+        height:100px;
     }
     .zcarousel .photos_wrap{
         width:calc(100% - 60px);
