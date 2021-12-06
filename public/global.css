@@ -45,6 +45,22 @@ video#video1{
 	background-color: transparent;
 }
 
+.meinuzi-btn{
+	cursor: pointer;
+	border:1px solid #FF88af;
+	background:white;
+	color:#FF88af;
+	border-radius: 0.25rem;
+}
+.meinuzi-btn:hover{
+	background:#FF88af;
+	color:white;
+}
+.meinuzi-btn:active{
+	box-shadow: 0px 0px 0px 4px #f8b0c8;
+}
+
+
 main{
 	background-color:#eee !important;
 	min-height:100vh;

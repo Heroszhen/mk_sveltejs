@@ -5,17 +5,20 @@
 	import Photo from './components/Photo.svelte';
 	import Videos from './components/Videos.svelte';
 	import Video from './components/Video.svelte';
+	import Search from './components/Search.svelte';
 
 	import { Router, Route, Link, navigate } from "svelte-navigator";
 	import PageStore from './stores/PageStore.js';
 	import DataStore from './stores/DataStore.js';
+	import SearchStore from './stores/SearchStore.js';
 	import { onMount, onDestroy } from 'svelte';
-	import { getBaseurl, getRelativepath } from './services/ToolService.js';
+	import { getBaseurl, getRelativepath, stopPropagation } from './services/ToolService.js';
 	import { List } from "svelte-bootstrap-icons";
 
 	let baseurl = getBaseurl();
 	let page = "";
 	let btn_nav;
+	let keywords = "";
 	//developement on localhost
 	window.onload = () =>{
 		if(window.location.host.includes("localhost")){
@@ -66,6 +69,12 @@
 		//......
 		getData();
 	});
+
+	function search(e){
+		stopPropagation(e);
+		SearchStore.set(keywords);
+		navigate('/recherche/s?query=' + keywords, { replace: true });
+	}
 </script>
 
 <Router primary={false}>
@@ -88,9 +97,9 @@
 							<Link to="videos" class="nav-link">Vidéos</Link>
 						</li>
 					</ul>
-					<form class="d-flex">
-						<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-						<button class="btn btn-outline-success" type="submit">Search</button>
+					<form class="d-flex" on:submit={search}>
+						<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"  bind:value={keywords}>
+						<button class="meinuzi-btn" type="submit">Chercher</button>
 					</form>
 				</div>
 			</div>
@@ -111,6 +120,9 @@
 		</Route>
 		<Route path="video/:id" let:params>
 			<Video id={params.id} />
+		</Route>
+		<Route path="recherche/:query">
+			<Search />
 		</Route>
 	</main>
 </Router>
