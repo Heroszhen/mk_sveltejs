@@ -115,6 +115,9 @@
 		<Route path="photos">
 			<Photos />
 		</Route>
+		<Route path="photo/:id" let:params>
+			<Photo id={params.id} />
+		</Route>
 		<Route path="videos">
 			<Videos />
 		</Route>

@@ -9,6 +9,7 @@ img#image1{
 
 a{
 	text-decoration: none;
+	color:black;
 }
 
 .undernav{
@@ -27,6 +28,7 @@ video#video1{
 	height:85vh;
 	width:auto;
 }
+
 
 /*meinuzi---start*/
 
