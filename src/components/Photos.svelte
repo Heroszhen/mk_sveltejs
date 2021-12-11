@@ -3,6 +3,7 @@
     import DataStore from '../stores/DataStore.js';
     import { onDestroy } from 'svelte';
     import { getRandomNumber } from '../services/ToolService.js'
+    import Paginator from 'svelte-paginator';
 
     import ModalPhoto from './ModalPhoto.svelte';
 
@@ -18,6 +19,24 @@
         unsubscribe;
         Diaporama(0);
     });
+
+    const loadPhotos=(page=1, perPage=10)=>{
+        if(allphotos.length > 0){
+            const start = perPage * (page-1)
+            const end = start + perPage
+            return {
+                items: allphotos.slice(start, end),
+                numItems: allphotos.length
+            }
+        }else{
+            return {
+                items: [],
+                numItems: 0
+            }
+        }
+       
+    }
+
 
     function setPhotourl(url){
         photourl = url;
@@ -43,29 +62,38 @@
     }
 
     function orderPhotos(action){
+        let allphotos2 = allphotos;
+        allphotos = [];
+        loadPhotos();
         order = action;
         if(action == 1){
             let tab_index = [];
             let tab = [];//stock new photos
             let index;
-            while(tab_index.length != allphotos.length){
-                index = getRandomNumber(0,allphotos.length - 1);
-                while(tab_index.includes(index))index = getRandomNumber(0,allphotos.length - 1);
+            while(tab_index.length != allphotos2.length){
+                index = getRandomNumber(0,allphotos2.length - 1);
+                while(tab_index.includes(index))index = getRandomNumber(0,allphotos2.length - 1);
                 tab_index.push(index);
             }
-            tab_index.forEach(index=>tab.push(allphotos[index]));
-            allphotos = tab;
+            tab_index.forEach(index=>tab.push(allphotos2[index]));
+            allphotos2 = tab;
         }else{
-            allphotos.sort((a,b)=>{
+            allphotos2.sort((a,b)=>{
                 if(action == 2)return a.name.localeCompare(b.name);
                 else return b.name.localeCompare(a.name);
-            });allphotos = allphotos;
+            });
         }
+        setTimeout(() => {
+            allphotos = allphotos2;
+            loadPhotos();
+        }, 10);
+        
+        
     }
 </script>
 
 <div id="photos">
-    <div class="container pt-2">
+    <div class="container pt-2 pb-2" id="container_wrap">
         <div id="btns_wrap" class="d-flex align-items-center">
             <div>
                 <button class="btn btn-sm btn-dark" on:click="{()=>Diaporama(1)}">Diaporama</button>
@@ -97,7 +125,7 @@
                 </div>
             </div>
         </div>
-        <div id="wrap_photos">
+        <!-- <div id="wrap_photos">
         {#each allphotos as photo,index(index)}
             <div class="onephoto" on:click="{()=>setPhotourl(photo.photourl)}">
                 <div>
@@ -106,7 +134,21 @@
                 <div class="name">{photo.name}</div>
             </div>
         {/each}
-        </div>
+        </div> -->
+        {#if allphotos.length > 0}
+        <Paginator loadItems={loadPhotos} perPage={20} let:items>
+            <div id="wrap_photos">
+                {#each items as photo,index(index)}
+                    <div class="onephoto" on:click="{()=>setPhotourl(photo.photourl)}">
+                        <div>
+                            <img src="{photo.photourl}" alt="">
+                        </div>
+                        <div class="name">{photo.name}</div>
+                    </div>
+                {/each}
+            </div>
+          </Paginator>
+          {/if}
     </div>
     {#if photourl != ""}
         <ModalPhoto photourl={photourl} on:message={closeModalphoto}  />
@@ -114,10 +156,26 @@
 </div>
 
 <style>
+    #photos #container_wrap>:global(div.paginator-button-group:nth-child(2)){
+        display:none;
+    }
+    #photos #container_wrap>:global(div.paginator-button-group){
+        text-align: center;
+        margin-top:10px;
+    }
+    #photos #container_wrap :global(div.paginator-button-group button.paginator-button){
+        color:pink !important;
+        background-color: white !important;
+        border-color:pink !important;
+    }
+    #photos #container_wrap :global(div.paginator-button-group button.paginator-current-page){
+        color:white !important;
+        background-color: pink !important;
+    }
     /* https://www.pinterest.fr/search/pins/?rs=ac&len=2&q=food&eq=food&etslf=3228&term_meta[]=food%7Cautocomplete%7C0 */
 	#wrap_photos{
         width:100%;
-        column-count: 4;
+        column-count: 5;
         column-gap: 15px;
         cursor: pointer;
         padding-top:10px;

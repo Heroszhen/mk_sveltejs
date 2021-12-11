@@ -1,9 +1,11 @@
 <script>
     import SearchStore from "../stores/SearchStore.js";
+    import PageStore from '../stores/PageStore.js';
     import DataStore from "../stores/DataStore.js";
     import { onDestroy } from 'svelte';
     import { Link } from "svelte-navigator";
 
+    PageStore.set("");
     let query = "";
     let data = {
         actresses:[],

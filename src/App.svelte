@@ -70,9 +70,10 @@
 		getData();
 	});
 
-	function search(e){
+	function search(e){clickBtnnav();
 		stopPropagation(e);
 		SearchStore.set(keywords);
+		
 		navigate('/recherche/s?query=' + keywords, { replace: true });
 	}
 </script>
