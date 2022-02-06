@@ -8,7 +8,7 @@
     const navigate = useNavigate();
     let allvideos = [];
     const unsubscribe = DataStore.subscribe(value => {
-		allvideos = value["videos"].reverse();
+		allvideos = value["videos"];
         //allvideos.reverse();
 	});
 	onDestroy(unsubscribe);

@@ -54,7 +54,7 @@
 		.then(response=>response.json())
 		.then(json=>{
 			DataStore.update(data=>{
-				data['videos'] = json["allvideos"];
+				data['videos'] = json["allvideos"].reverse();
 				return data;
 			});
 		});
