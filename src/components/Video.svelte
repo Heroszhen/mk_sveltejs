@@ -17,11 +17,12 @@
     onDestroy(unsubscribe);
 
     function resetVideo(){
-        let video = document.getElementsByTagName("iframe")[0];
-        if(video != undefined){
-            let width = (video.offsetWidth <= 900)?video.offsetWidth:853;
+        let video_dom = document.getElementsByTagName("iframe")[0];
+        if(video_dom != undefined){
+            if(video.videotype == 4)return;
+            let width = (video_dom.offsetWidth <= 900)?video_dom.offsetWidth:853;
             let height = width / (16 / 9);
-            video.style.height = height + "px";
+            video_dom.style.height = height + "px";
         }
     }
 
@@ -37,7 +38,7 @@
         
         {#if video != null}
             <div class="text-center">
-                {#if video.videotype == 1}
+                {#if video.videotype == 1 || video.videotype == 4}
                     {@html video.videourl}
                 {/if}
                 {#if video.videotype == 2}
@@ -64,7 +65,7 @@
                 <h4 class="fw-bold">{video.name}</h4>
                 <div class="fw-bold">{video.actressname}</div>
                 {#if video.description != null}
-                    <div>{@html video.description}</div>
+                    <div class="description">{@html video.description}</div>
                 {/if}
             </div>
         {/if}
@@ -74,5 +75,10 @@
 <style>
 	.container{
         padding:0;
+    }
+    .description{
+        width:100%;
+        clear: both;
+        word-wrap: break-word;
     }
 </style>

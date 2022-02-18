@@ -8,10 +8,14 @@
     const navigate = useNavigate();
     let allvideos = [];
     const unsubscribe = DataStore.subscribe(value => {
-		allvideos = value["videos"];
-        //allvideos.reverse();
+		allvideos = value["videos"];console.log(allvideos)
 	});
 	onDestroy(unsubscribe);
+
+    function getSiteIcon(videourl){
+        if(videourl.includes("douyin.com"))return "assets/douyin.png";
+        return "";
+    }
 </script>
 
 <div id="videos">
@@ -22,7 +26,12 @@
                 <div>
                     <img src="{video.photourl}" alt="">
                 </div>
-                <div class="name">{video.name}</div>
+                <div class="name">
+                    {#if getSiteIcon(video.videourl) != ""}
+                        <img src={getSiteIcon(video.videourl)} alt="" class="site-icon">
+                    {/if}
+                    {video.name}
+                </div>
             </div>
             {/each}
         </div>
@@ -44,6 +53,11 @@
         margin-bottom:40px;
         width:100%;
         position:relative;
+    }
+    img.site-icon{
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
     }
     @media(max-width:767px){
         #wrap_videos{
