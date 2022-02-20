@@ -3,6 +3,7 @@
     import DataStore from '../stores/DataStore.js';
     import { onDestroy, afterUpdate } from 'svelte';
     import { useNavigate } from "svelte-navigator";
+    import { BoxArrowInRight } from "svelte-bootstrap-icons";
 
     PageStore.set("video");
 	export let id;
@@ -10,6 +11,7 @@
     let allvideos = [];
     let video = null;
     let nextvideos = [];
+    let ref_nextvideos;
     const unsubscribe = DataStore.subscribe(value => {
         if(value["videos"].length != 0){
             allvideos = value["videos"];
@@ -18,12 +20,11 @@
 	});
     onDestroy(unsubscribe);
 
-    async function setVideos(newid=null){
+    function setVideos(newid=null){
         if(newid == null)newid = id;
         else{
             id = newid;
             navigate('/video/' + id)
-            //await new Promise(resolve => setTimeout(resolve, 10000));
         }
         let n = 20;
         let index;
@@ -41,6 +42,7 @@
             nextvideos.push(allvideos[index]);
             index++;
         }
+        //ref_nextvideos.scrollLeft = 0;
     }
 
     function resetVideo(){
@@ -87,8 +89,11 @@
                     </a>
                 {/if}
             </div>
-            <div class="mt-4 pe-2 ps-2">
-                <h4 class="fw-bold">{video.name}</h4>
+            <div class="mt-2 pe-2 ps-2">
+                <h4 class="fw-bold">
+                    <a href="{video.siteurl}" class="pe-2" id="siteurl" target="_blank"><BoxArrowInRight width="30" height="30" /></a>
+                    {video.name}
+                </h4>
                 <div class="fw-bold">{video.actressname}</div>
                 {#if video.description != null}
                     <div class="description">{@html video.description}</div>
@@ -96,12 +101,14 @@
             </div>
         {/if}
     </div>
-    <div class="list-nextvideos">
-        {#each nextvideos as video,index(index)}
-            <div class="onenextvideo" on:click="{() =>setVideos(video["id"])}">
-                <img src="{video.photourl}" alt="">
-            </div>
-        {/each}
+    <div class="container mt-2">
+        <div class="list-nextvideos" bind:this={ref_nextvideos}>
+            {#each nextvideos as video,index(index)}
+                <div class="onenextvideo" on:click="{() =>setVideos(video["id"])}">
+                    <img src="{video.photourl}" alt="">
+                </div>
+            {/each}
+        </div>
     </div>
 </div>
 
@@ -115,7 +122,6 @@
         word-wrap: break-word;
     }
     .list-nextvideos{
-        width:90%;
         overflow-x: auto;
         display:flex;
         padding:2px 10px;
@@ -132,7 +138,6 @@
     }
     @media(max-width:576px){
         .list-nextvideos{
-            width:99%;
             padding:2px 5px;
         }
         .list-nextvideos .onenextvideo{
