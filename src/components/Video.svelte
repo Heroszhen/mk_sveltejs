@@ -57,6 +57,7 @@
 
     afterUpdate(() => {
         resetVideo();
+        ref_nextvideos.scrollLeft = 0;
     });
     window.addEventListener('resize', ()=>{resetVideo();});
 
