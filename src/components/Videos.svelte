@@ -8,12 +8,13 @@
     const navigate = useNavigate();
     let allvideos = [];
     const unsubscribe = DataStore.subscribe(value => {
-		allvideos = value["videos"];console.log(allvideos)
+		allvideos = value["videos"];
 	});
 	onDestroy(unsubscribe);
 
     function getSiteIcon(videourl){
         if(videourl.includes("douyin.com"))return "assets/douyin.png";
+        if(videourl.includes("kuaishou.com"))return "assets/kuaishou.png";
         return "";
     }
 </script>

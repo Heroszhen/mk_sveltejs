@@ -1,20 +1,47 @@
 <script>
     import PageStore from '../stores/PageStore.js';
     import DataStore from '../stores/DataStore.js';
-    import { onMount,onDestroy, afterUpdate } from 'svelte';
+    import { onDestroy, afterUpdate } from 'svelte';
+    import { useNavigate } from "svelte-navigator";
 
     PageStore.set("video");
 	export let id;
+    const navigate = useNavigate();
+    let allvideos = [];
     let video = null;
+    let nextvideos = [];
     const unsubscribe = DataStore.subscribe(value => {
-		for(let entry of value["videos"]){
-            if(entry["id"] == id){
-                video = entry;
-                break;
-            }
+        if(value["videos"].length != 0){
+            allvideos = value["videos"];
+            setVideos();
         }
 	});
     onDestroy(unsubscribe);
+
+    async function setVideos(newid=null){
+        if(newid == null)newid = id;
+        else{
+            id = newid;
+            navigate('/video/' + id)
+            //await new Promise(resolve => setTimeout(resolve, 10000));
+        }
+        let n = 20;
+        let index;
+        for(index in allvideos){
+            if(allvideos[index]["id"] == newid){
+                video = allvideos[index];
+                window.scroll(0, 0);
+                break;
+            }
+        }
+        nextvideos = [];
+        index++;
+        for(let i = 0;i < n;i++){
+            if(allvideos[index] == null)index = 0;
+            nextvideos.push(allvideos[index]);
+            index++;
+        }
+    }
 
     function resetVideo(){
         let video_dom = document.getElementsByTagName("iframe")[0];
@@ -33,11 +60,10 @@
 
 </script>
 
-<div id="video">
+<div id="video" class="pb-3">
     <div class="container pb-2">
-        
         {#if video != null}
-            <div class="text-center">
+            <div class="text-center" class:tiktok="{video.videotype == 4}">
                 {#if video.videotype == 1 || video.videotype == 4}
                     {@html video.videourl}
                 {/if}
@@ -70,6 +96,13 @@
             </div>
         {/if}
     </div>
+    <div class="list-nextvideos">
+        {#each nextvideos as video,index(index)}
+            <div class="onenextvideo" on:click="{() =>setVideos(video["id"])}">
+                <img src="{video.photourl}" alt="">
+            </div>
+        {/each}
+    </div>
 </div>
 
 <style>
@@ -80,5 +113,30 @@
         width:100%;
         clear: both;
         word-wrap: break-word;
+    }
+    .list-nextvideos{
+        width:90%;
+        overflow-x: auto;
+        display:flex;
+        padding:2px 10px;
+        margin:0 auto;
+    }
+    .list-nextvideos .onenextvideo{
+        height:150px;
+        cursor: pointer;
+        margin-left:10px;
+    }
+    .list-nextvideos .onenextvideo img{
+       height:100%;
+       width:auto;
+    }
+    @media(max-width:576px){
+        .list-nextvideos{
+            width:99%;
+            padding:2px 5px;
+        }
+        .list-nextvideos .onenextvideo{
+            height:200px;
+        }
     }
 </style>
