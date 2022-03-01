@@ -1,47 +1,49 @@
 <script>
     import PageStore from '../stores/PageStore.js';
-    import DataStore from '../stores/DataStore.js';
-    import { onDestroy, afterUpdate } from 'svelte';
+    //import DataStore from '../stores/DataStore.js';
+    import { afterUpdate } from 'svelte';
     import { useNavigate } from "svelte-navigator";
     import { BoxArrowInRight } from "svelte-bootstrap-icons";
+    import { getBaseurl } from '../services/ToolService.js';
 
     PageStore.set("video");
 	export let id;
     const navigate = useNavigate();
-    let allvideos = [];
+    let baseurl = getBaseurl();
     let video = null;
     let nextvideos = [];
     let ref_nextvideos;
+    /*
     const unsubscribe = DataStore.subscribe(value => {
         if(value["videos"].length != 0){
             allvideos = value["videos"];
             setVideos();
         }
 	});
-    onDestroy(unsubscribe);
+    onDestroy(unsubscribe);*/
+    getOneVideo(id);
+    function getOneVideo(id){
+        fetch(baseurl + "/mk/onevideo_web/" + id)
+        .then(response=>response.json())
+        .then(json=>{
+            if(json["status"] == 200){
+                video = json["video"];console.log
+                nextvideos = json["nextvideos"];
+            }
+        });
+    }
 
     function setVideos(newid=null){
+        video == null;
+        nextvideos = [];
         if(newid == null)newid = id;
         else{
             id = newid;
             navigate('/video/' + id)
         }
-        let n = 20;
-        let index;
-        for(index in allvideos){
-            if(allvideos[index]["id"] == newid){
-                video = allvideos[index];
-                window.scroll(0, 0);
-                break;
-            }
-        }
-        nextvideos = [];
-        index++;
-        for(let i = 0;i < n;i++){
-            if(allvideos[index] == null)index = 0;
-            nextvideos.push(allvideos[index]);
-            index++;
-        }
+        
+        window.scroll(0,0);
+        getOneVideo(id);
         //ref_nextvideos.scrollLeft = 0;
     }
 
@@ -57,15 +59,15 @@
 
     afterUpdate(() => {
         resetVideo();
-        ref_nextvideos.scrollLeft = 0;
+        if(ref_nextvideos != null)ref_nextvideos.scrollLeft = 0;
     });
     window.addEventListener('resize', ()=>{resetVideo();});
 
 </script>
 
 <div id="video" class="pb-3">
-    <div class="container pb-2">
-        {#if video != null}
+    {#if video != null}
+        <div class="container pb-2">
             <div class="text-center" class:tiktok="{video.videotype == 4}">
                 {#if video.videotype == 1 || video.videotype == 4}
                     {@html video.videourl}
@@ -100,17 +102,17 @@
                     <div class="description">{@html video.description}</div>
                 {/if}
             </div>
-        {/if}
-    </div>
-    <div class="container mt-2">
-        <div class="list-nextvideos" bind:this={ref_nextvideos}>
-            {#each nextvideos as video,index(index)}
-                <div class="onenextvideo" on:click="{() =>setVideos(video["id"])}">
-                    <img src="{video.photourl}" alt="">
-                </div>
-            {/each}
         </div>
-    </div>
+        <div class="container mt-2">
+            <div class="list-nextvideos" bind:this={ref_nextvideos}>
+                {#each nextvideos as video,index(index)}
+                    <div class="onenextvideo" on:click="{() =>setVideos(video["id"])}">
+                        <img src="{video.photourl}" alt="">
+                    </div>
+                {/each}
+            </div>
+        </div> 
+    {/if}
 </div>
 
 <style>

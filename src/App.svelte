@@ -49,7 +49,7 @@
 				return data;
 			});
 		});
-
+/*
 		fetch(baseurl + "/mk/videos")
 		.then(response=>response.json())
 		.then(json=>{
@@ -57,7 +57,7 @@
 				data['videos'] = json["allvideos"].reverse();
 				return data;
 			});
-		});
+		});*/
 	}
 
 	function clickBtnnav(){
