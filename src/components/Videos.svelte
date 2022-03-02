@@ -3,6 +3,7 @@
     import { useNavigate } from "svelte-navigator";
     import { getBaseurl } from '../services/ToolService.js';
     import { onDestroy } from 'svelte';
+    import DataStore from '../stores/DataStore.js';
 
     PageStore.set("videos");
     const navigate = useNavigate();
@@ -11,11 +12,20 @@
     let id = -1;
     let charge = true;
     let loading = false;
-    getVideos();
 
+    const unsubscribe = DataStore.subscribe(value => {
+		if(value["videos"].length == 0)getVideos();
+        else{
+            allvideos = value["videos"];
+            id = allvideos[allvideos.length - 1]["id"];
+        }
+	});
     window.addEventListener('scroll', detecteWindowScroll,false);
 
-    onDestroy(()=>window.removeEventListener('scroll', detecteWindowScroll,false));
+    onDestroy(()=>{
+        unsubscribe;
+        window.removeEventListener('scroll', detecteWindowScroll,false);
+    });
 
     function detecteWindowScroll(e){
         if(window.innerHeight + window.scrollY + 1 >= document.body.offsetHeight){
@@ -35,6 +45,10 @@
                     id = allvideos[allvideos.length - 1]["id"];
                     if(json['allvideos'].length > 0)charge = true;
                     loading = false;
+                    DataStore.update(data=>{
+                        data['videos'] = allvideos;
+                        return data;
+                    }); 
                 }
             });
         }
@@ -91,6 +105,9 @@
 </div>
 
 <style>
+    #videos{
+        min-height:calc(100vh + 10px);
+    }
     .container{
        display:flex;
        flex-wrap: wrap;
@@ -98,7 +115,7 @@
     }
     .container .onevideo{
         --my-width:17vw;
-        --my--height:calc(var(--my-width) / 2);
+        --my--height:calc(var(--my-width) / 1.78);
         width:var(--my-width);
         margin-bottom:30px;
         cursor: pointer;

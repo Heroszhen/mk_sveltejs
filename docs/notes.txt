@@ -25,4 +25,5 @@ https://v16-webapp.tiktok.com/7ab8786280a2e641a0fd0c63a2712a1c/62127577/video/to
 https://v16-webapp.tiktok.com/c930e0258eb7bac4588c70684fe4f4cd/6212758f/video/tos/useast2a/tos-useast2a-pve-0068/b90d51a1061c43c8996df934b10bf1a9/?a=1988&br=1686&bt=843&cd=0%7C0%7C1%7C0&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&ft=XOQ9-3D_nz7ThpV09DXq&l=202202201108260102231000262075834C&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=0&rc=MzM0d2w3Om9oeTMzPDczM0ApZWhlZ2c4ZmU4NzM0OTdoZGdzNDVyNDEucmxfLS02MTZzc2AwYTVjMDAvLV8xNmIuNDM6Yw%3D%3D&vl=&vr=
 
 
-320 180
+320 y
+180 x
