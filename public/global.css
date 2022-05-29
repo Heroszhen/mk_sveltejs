@@ -1,97 +1,110 @@
-img{
-	width:100%;
-	height:auto;
-}
-img#image1{
-	height:85vh;
-	width:auto;
+img {
+	width: 100%;
+	height: auto;
 }
 
-a{
+img#image1 {
+	height: 85vh;
+	width: auto;
+}
+
+a {
 	text-decoration: none;
-	color:black;
+	color: black;
 }
 
-.undernav{
-	padding-top:66px;
+.undernav {
+	padding-top: 66px;
 }
 
-.pointer{
+.pointer {
 	cursor: pointer;
 }
-iframe{
-	width:100%;
-	height:auto;
+
+iframe {
+	width: 100%;
+	height: auto;
 }
 
-video#video1{
-	height:85vh;
-	width:auto;
+video#video1 {
+	height: 85vh;
+	width: auto;
+}
+
+p {
+	margin-bottom: 0.25rem !important;
 }
 
 
 /*meinuzi---start*/
 
-.meinuzi-color{
-	color:#FF88af;
-}
-.meinuzi-background-color{
-	background-color:#FF88af;
-	color:white;
+.meinuzi-color {
+	color: #FF88af;
 }
 
-.container{
+.meinuzi-background-color {
+	background-color: #FF88af;
+	color: white;
+}
+
+.container {
 	background-color: white;
 }
-.container2{
+
+.container2 {
 	background-color: transparent;
 }
 
-.meinuzi-btn{
+.meinuzi-btn {
 	cursor: pointer;
-	border:1px solid #FF88af;
-	background:white;
-	color:#FF88af;
+	border: 1px solid #FF88af;
+	background: white;
+	color: #FF88af;
 	border-radius: 0.25rem;
 }
-.meinuzi-btn:hover{
-	background:#FF88af;
-	color:white;
+
+.meinuzi-btn:hover {
+	background: #FF88af;
+	color: white;
 }
-.meinuzi-btn:active{
+
+.meinuzi-btn:active {
 	box-shadow: 0px 0px 0px 4px #f8b0c8;
 }
 
 
-main{
-	background-color:#eee !important;
-	min-height:100vh;
+main {
+	background-color: #eee !important;
+	min-height: 100vh;
 }
+
 /*meinuzi---end*/
 
 /*magnifier---start*/
-img.magnifier-image{
-	height:100% !important;
-	width:auto !important;
+img.magnifier-image {
+	height: 100% !important;
+	width: auto !important;
 }
+
 /*magnifier---end*/
 
 @media (min-width:768px) {
-	.container{
-		width:72% !important;
+	.container {
+		width: 72% !important;
 	}
 }
 
 @media (max-width:767px) {
-	img#image1{
-		width:100% !important;
+	img#image1 {
+		width: 100% !important;
 		height: auto !important;
 	}
 
 	/*magnifier---start*/
-	img.magnifier-image{
-		width:100% !important;
-		height:auto !important;
+	img.magnifier-image {
+		width: 100% !important;
+		height: auto !important;
 	}
+
 	/*magnifier---end*/
 }
