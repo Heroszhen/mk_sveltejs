@@ -9,6 +9,8 @@
         XCircle,
         ArrowClockwise,
         ArrowCounterclockwise,
+        ArrowsFullscreen,
+        FullscreenExit,
     } from "svelte-bootstrap-icons";
     import { getBaseurl } from "../services/ToolService.js";
 
@@ -22,6 +24,8 @@
     let modal = false;
     let turn = 0;
     let angle = 0;
+    let fullscreen = false;
+    let elem = document.documentElement;
     /*
     const unsubscribe = DataStore.subscribe(value => {
         if(value["videos"].length != 0){
@@ -113,6 +117,33 @@
                     video_dom.style.height = width + "px";
                 }
             }
+        }
+    }
+
+    function openFullscreen() {
+        fullscreen = true;
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) {
+            /* Safari */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) {
+            /* IE11 */
+            elem.msRequestFullscreen();
+        }
+    }
+
+    /* Close fullscreen */
+    function closeFullscreen() {
+        fullscreen = false;
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            /* Safari */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+            /* IE11 */
+            document.msExitFullscreen();
         }
     }
 
@@ -224,6 +255,23 @@
                     on:click={() => rotateModalVideo(2)}
                 />
             </div>
+            {#if fullscreen == false}
+                <div class="func">
+                    <ArrowsFullscreen
+                        width="20"
+                        height="20"
+                        on:click={() => openFullscreen()}
+                    />
+                </div>
+            {:else}
+                <div class="func">
+                    <FullscreenExit
+                        width="20"
+                        height="20"
+                        on:click={() => closeFullscreen()}
+                    />
+                </div>
+            {/if}
             <div class="func">
                 <XCircle width="30" height="30" on:click={() => closeModal()} />
             </div>
@@ -285,7 +333,7 @@
         color: white;
     }
     .modal-video > div:first-child > .func:not(:last-child) {
-        margin-right: 10px;
+        margin-right: 20px;
     }
     @media (max-width: 576px) {
         .list-nextvideos {
