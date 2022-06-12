@@ -11,8 +11,9 @@
         ArrowCounterclockwise,
         ArrowsFullscreen,
         FullscreenExit,
+        Share,
     } from "svelte-bootstrap-icons";
-    import { getBaseurl } from "../services/ToolService.js";
+    import { getBaseurl, copyToClipboard } from "../services/ToolService.js";
 
     PageStore.set("video");
     export let id;
@@ -56,6 +57,8 @@
         }
 
         window.scroll(0, 0);
+        video = null;
+        nextvideos = [];
         getOneVideo(id);
         //ref_nextvideos.scrollLeft = 0;
     }
@@ -147,6 +150,10 @@
         }
     }
 
+    function getLink() {
+        copyToClipboard("http://mk.yangzhen.fr/video/" + video["id"]);
+    }
+
     afterUpdate(() => {
         resetVideo();
         if (ref_nextvideos != null) ref_nextvideos.scrollLeft = 0;
@@ -195,7 +202,15 @@
                 {/if}
             </div>
             <div class="pe-2 ps-2">
-                <div class="d-flex">
+                <div class="d-flex align-items-center">
+                    <div class="me-3">
+                        <a href={video.siteurl} id="siteurl" target="_blank">
+                            <BoxArrowInRight width="30" height="30" />
+                        </a>
+                    </div>
+                    <div class="me-3 pointer" on:click={getLink}>
+                        <Share width="27" height="27" />
+                    </div>
                     <div>
                         {#if video.videotype == 1}
                             <ArrowRepeat
@@ -207,16 +222,7 @@
                         {/if}
                     </div>
                 </div>
-                <h4 class="fw-bold mt-2 ">
-                    <a
-                        href={video.siteurl}
-                        class="pe-2"
-                        id="siteurl"
-                        target="_blank"
-                        ><BoxArrowInRight width="30" height="30" /></a
-                    >
-                    {video.name}
-                </h4>
+                <h4 class="fw-bold mt-2 ">{video.name}</h4>
                 <div class="fw-bold">{video.actressname}</div>
                 {#if video.description != null}
                     <div class="description">{@html video.description}</div>
