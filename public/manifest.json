@@ -1,7 +1,7 @@
 {
     "name": "Jolies Filles",
-    "short_name": "JF",
-    "start_url": "/index.html",
+    "short_name": "JoliesFilles",
+    "start_url": "/actrices",
     "icons": [
         {
             "src": "/assets/logo144x144.png",
