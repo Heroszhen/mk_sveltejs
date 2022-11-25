@@ -72,6 +72,12 @@
             let height = width / (16 / 9);
             video_dom.style.height = height + "px";
         }
+        // let video1_dom = document.getElementById("video1");
+        // if (video1_dom != null) {
+        //     if (window.innerWidth < 768) {
+        //         video1_dom.style.width = "100%";
+        //     }
+        // }
     }
 
     function openModal() {
@@ -290,6 +296,12 @@
     .container {
         padding: 0;
     }
+    img {
+        max-width: 100%;
+    }
+    #video1 {
+        max-width: 100%;
+    }
     .description {
         width: 100%;
         clear: both;
@@ -340,6 +352,11 @@
     }
     .modal-video > div:first-child > .func:not(:last-child) {
         margin-right: 20px;
+    }
+    @media (max-width: 767px) {
+        #video1 {
+            width: 100%;
+        }
     }
     @media (max-width: 576px) {
         .list-nextvideos {
