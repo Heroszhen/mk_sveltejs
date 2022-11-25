@@ -56,6 +56,10 @@
 
     //big image
     function switchMask(action) {
+        if (isMobile() == true) {
+            mask = false;
+            return;
+        }
         if (action == 1) {
             //hover
             mask = true;
