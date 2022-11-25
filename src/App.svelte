@@ -23,6 +23,7 @@
 	let page = "";
 	let btn_nav;
 	let keywords = "";
+	let deferredPrompt = null;
 	//developement on localhost
 	window.onload = () => {
 		if (window.location.host.includes("localhost")) {
@@ -37,6 +38,9 @@
 		page = value;
 	});
 	onDestroy(unsubscribe);
+	window.addEventListener("beforeinstallprompt", (e) => {
+		deferredPrompt = e;
+	});
 
 	const getData = () => {
 		fetch(baseurl + "/mk/actresses")
@@ -84,6 +88,16 @@
 
 		navigate("/recherche/s?query=" + keywords, { replace: true });
 	}
+	async function installApp() {
+		if (deferredPrompt !== null && deferredPrompt != undefined) {
+			console.log(deferredPrompt);
+			deferredPrompt.prompt();
+			const { outcome } = await deferredPrompt.userChoice;
+			if (outcome === "accepted") {
+				deferredPrompt = null;
+			}
+		}
+	}
 </script>
 
 <Router primary={false}>
@@ -129,6 +143,16 @@
 						>
 							<Link to="videos" class="nav-link">Vidéos</Link>
 						</li>
+						{#if deferredPrompt !== null && deferredPrompt != undefined}
+							<li
+								class="nav-item d-flex"
+								on:click={() => installApp()}
+							>
+								<button class="meinuzi-full-btn" type="button"
+									>Installer</button
+								>
+							</li>
+						{/if}
 					</ul>
 					<form class="d-flex" on:submit={search}>
 						<input

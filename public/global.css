@@ -72,6 +72,14 @@ p {
 	box-shadow: 0px 0px 0px 4px #f8b0c8;
 }
 
+.meinuzi-full-btn {
+	cursor: pointer;
+	border: 1px solid #FF88af;
+	background: #FF88af;
+	color: white;
+	border-radius: 0.25rem;
+}
+
 
 main {
 	background-color: #eee !important;
