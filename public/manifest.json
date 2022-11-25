@@ -1,0 +1,15 @@
+{
+    "name": "Jolies Filles",
+    "short_name": "JF",
+    "start_url": "/index.html",
+    "icons": [
+        {
+            "src": "/assets/logo144x144.png",
+            "sizes": "144x144",
+            "type": "image/png"
+        }
+    ],
+    "background_color": "gray",
+    "theme_color": "#FF88af",
+    "display": "standalone"
+}
