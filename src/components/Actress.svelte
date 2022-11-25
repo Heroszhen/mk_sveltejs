@@ -3,6 +3,7 @@
     import DataStore from "../stores/DataStore.js";
     import { ChevronLeft, ChevronRight } from "svelte-bootstrap-icons";
     import { onDestroy } from "svelte";
+    import { isMobile } from "../services/ToolService";
 
     PageStore.set("actress");
     export let id;
@@ -65,6 +66,7 @@
     }
 
     function moveMouse(e) {
+        if (isMobile() == true) return;
         let clientRect = ref_image.getBoundingClientRect();
         let top = Math.ceil(clientRect.top); //y->vertical
         let left = Math.ceil(clientRect.left); //x -> horizontal
