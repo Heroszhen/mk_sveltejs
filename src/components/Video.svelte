@@ -66,6 +66,7 @@
     }
 
     function resetVideo() {
+        /*
         let video_dom = document.getElementsByTagName("iframe")[0];
         if (video_dom != undefined) {
             if (video.videotype == 4) return;
@@ -73,7 +74,7 @@
                 video_dom.offsetWidth <= 900 ? video_dom.offsetWidth : 853;
             let height = width / (16 / 9);
             video_dom.style.height = height + "px";
-        }
+        }*/
         // let video1_dom = document.getElementById("video1");
         // if (video1_dom != null) {
         //     if (window.innerWidth < 768) {
