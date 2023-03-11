@@ -36,6 +36,7 @@
         }
 	});
     onDestroy(unsubscribe);*/
+    let cheight = 0;
     getOneVideo(id);
     function getOneVideo(id) {
         fetch(baseurl + "/mk/onevideo_web/" + id)
@@ -73,6 +74,7 @@
                 video_dom.offsetWidth <= 900 ? video_dom.offsetWidth : 853;
             let height = width / (16 / 9);
             video_dom.style.height = height + "px";
+            cheight = height;
         }
         // let video1_dom = document.getElementById("video1");
         // if (video1_dom != null) {
@@ -175,6 +177,7 @@
 <div id="video" class="pb-3">
     {#if video != null}
         <div class="container pb-2">
+            <div class="p-5">{cheight}</div>
             <div class="text-center" class:tiktok={video.videotype == 4}>
                 {#if video.videotype == 1 || video.videotype == 4}
                     {@html video.videourl}
@@ -379,7 +382,7 @@
     button.btn-return {
         position: fixed;
         z-index: 100;
-        bottom: 30px;
+        bottom: 15px;
         right: 20px;
         padding: 0;
         width: 50px;

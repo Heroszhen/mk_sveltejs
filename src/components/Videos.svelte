@@ -6,7 +6,6 @@
     import DataStore from "../stores/DataStore.js";
 
     PageStore.set("videos");
-    console.log("videos");
     const navigate = useNavigate();
     let allvideos = [];
     let baseurl = getBaseurl();
