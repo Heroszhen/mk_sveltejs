@@ -15,6 +15,7 @@
         ChevronLeft,
     } from "svelte-bootstrap-icons";
     import { getBaseurl, copyToClipboard } from "../services/ToolService.js";
+    import { onMount, onDestroy } from "svelte";
 
     PageStore.set("video");
     export let id;
@@ -28,6 +29,7 @@
     let angle = 0;
     let fullscreen = false;
     let elem = document.documentElement;
+    let body = document.querySelector("body");
     /*
     const unsubscribe = DataStore.subscribe(value => {
         if(value["videos"].length != 0){
@@ -36,6 +38,14 @@
         }
 	});
     onDestroy(unsubscribe);*/
+
+    onMount(() => {
+        body.classList.add("over");
+    });
+    onDestroy(() => {
+        body.classList.remove("over");
+    });
+
     getOneVideo(id);
     function getOneVideo(id) {
         fetch(baseurl + "/mk/onevideo_web/" + id)
@@ -298,8 +308,6 @@
     <ChevronLeft />
 </button>
 
-<svelte:body />
-
 <style>
     #video {
         height: calc(100vh - 68px);
@@ -395,9 +403,5 @@
         justify-content: center;
         align-items: center;
         font-weight: bold;
-    }
-    :global(body) {
-        height: 100vh;
-        overflow: hidden;
     }
 </style>
