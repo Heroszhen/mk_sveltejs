@@ -43,6 +43,7 @@
                 if (json["status"] == 200) {
                     video = json["video"];
                     nextvideos = json["nextvideos"];
+                    window.scrollTo(0, 0);
                 }
             });
     }
@@ -207,7 +208,7 @@
                     </a>
                 {/if}
             </div>
-            <div class="pe-2 ps-2">
+            <div class="p-2">
                 <div class="d-flex align-items-center">
                     <div class="me-3">
                         <a href={video.siteurl} id="siteurl" target="_blank">
@@ -292,9 +293,18 @@
     </div>
 {/if}
 
+<button class="btn-return meinuzi-btn" on:click={() => navigate(-1)}>
+    <i class="mi mi-chevron-left">
+        <span class="u-sr-only" />
+    </i>
+</button>
+
 <style>
     .container {
         padding: 0;
+    }
+    .tiktok {
+        min-height: 600px;
     }
     img {
         max-width: 100%;
@@ -365,5 +375,22 @@
         .list-nextvideos .onenextvideo {
             height: 200px;
         }
+    }
+
+    button.btn-return {
+        position: fixed;
+        z-index: 100;
+        bottom: 60px;
+        right: 20px;
+        padding: 0;
+        padding-top: 5px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        font-size: 30px;
     }
 </style>
