@@ -66,15 +66,14 @@
     }
 
     function resetVideo() {
-        /*
+        if (video !== null && video.videotype == 4) return;
         let video_dom = document.getElementsByTagName("iframe")[0];
         if (video_dom != undefined) {
-            if (video.videotype == 4) return;
             let width =
                 video_dom.offsetWidth <= 900 ? video_dom.offsetWidth : 853;
             let height = width / (16 / 9);
             video_dom.style.height = height + "px";
-        }*/
+        }
         // let video1_dom = document.getElementById("video1");
         // if (video1_dom != null) {
         //     if (window.innerWidth < 768) {
@@ -380,7 +379,7 @@
     button.btn-return {
         position: fixed;
         z-index: 100;
-        bottom: 40px;
+        bottom: 30px;
         right: 20px;
         padding: 0;
         width: 50px;
