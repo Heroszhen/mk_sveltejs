@@ -12,6 +12,7 @@
         ArrowsFullscreen,
         FullscreenExit,
         Share,
+        ChevronLeft,
     } from "svelte-bootstrap-icons";
     import { getBaseurl, copyToClipboard } from "../services/ToolService.js";
 
@@ -294,9 +295,7 @@
 {/if}
 
 <button class="btn-return meinuzi-btn" on:click={() => navigate(-1)}>
-    <i class="mi mi-chevron-left">
-        <span class="u-sr-only" />
-    </i>
+    <ChevronLeft />
 </button>
 
 <style>
@@ -380,10 +379,9 @@
     button.btn-return {
         position: fixed;
         z-index: 100;
-        bottom: 60px;
+        bottom: 40px;
         right: 20px;
         padding: 0;
-        padding-top: 5px;
         width: 50px;
         height: 50px;
         border-radius: 50%;
@@ -391,6 +389,5 @@
         justify-content: center;
         align-items: center;
         font-weight: bold;
-        font-size: 30px;
     }
 </style>
