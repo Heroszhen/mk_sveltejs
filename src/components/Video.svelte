@@ -298,6 +298,8 @@
     <ChevronLeft />
 </button>
 
+<svelte:body />
+
 <style>
     #video {
         height: calc(100vh - 68px);
@@ -393,5 +395,9 @@
         justify-content: center;
         align-items: center;
         font-weight: bold;
+    }
+    :global(body) {
+        height: 100vh;
+        overflow: hidden;
     }
 </style>
