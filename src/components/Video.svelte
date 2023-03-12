@@ -52,7 +52,16 @@
             .then((response) => response.json())
             .then((json) => {
                 if (json["status"] == 200) {
-                    video = json["video"];
+                    let video_tmp = json["video"];
+                    if (
+                        video_tmp["videotype"] == 5 &&
+                        video_tmp["videourl"].includes("youtube")
+                    ) {
+                        let tab = video_tmp["videourl"].split("/");
+                        video_tmp["video_id"] = tab[tab.length - 1];
+                    }
+                    console.log(video_tmp);
+                    video = video_tmp;
                     nextvideos = json["nextvideos"];
                     window.scrollTo(0, 0);
                 }
@@ -76,7 +85,7 @@
     }
 
     function resetVideo() {
-        if (video !== null && video.videotype == 4) return;
+        if (video !== null && [4, 5].includes(video.videotype)) return;
         let video_dom = document.getElementsByTagName("iframe")[0];
         if (video_dom != undefined) {
             let width =
@@ -154,6 +163,12 @@
         }
     }
 
+    function getShortvideoSrc() {
+        let src = video.videourl + "?rel=0&autoplay=1&controls=0&loop=1";
+        if (video.video_id != null) src += "&playlist=" + video.video_id;
+        return src;
+    }
+
     /* Close fullscreen */
     function closeFullscreen() {
         fullscreen = false;
@@ -185,7 +200,11 @@
 <div id="video" class="pb-3">
     {#if video != null}
         <div class="container pt-3 pb-2">
-            <div class="text-center" class:tiktok={video.videotype == 4}>
+            <div
+                class="text-center"
+                class:tiktok={video.videotype == 4}
+                class:short={video.videotype == 5}
+            >
                 {#if video.videotype == 1 || video.videotype == 4}
                     {@html video.videourl}
                 {/if}
@@ -217,6 +236,19 @@
                     <a href={video.siteurl} target="_blank">
                         <img src={video.photourl} alt="" />
                     </a>
+                {/if}
+                {#if video.videotype == 5}
+                    <iframe
+                        width="352"
+                        height="626"
+                        src={getShortvideoSrc()}
+                        title=""
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        autoplay
+                        allowfullscreen
+                        style="width:352px;height:621px;border-radius:12px;"
+                    />
                 {/if}
             </div>
             <div class="p-2">
@@ -379,6 +411,9 @@
     @media (max-width: 767px) {
         #video1 {
             width: 100%;
+        }
+        #video {
+            padding-bottom: 50px !important;
         }
     }
     @media (max-width: 576px) {
