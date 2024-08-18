@@ -7,7 +7,7 @@
     import Video from "./Video.svelte";
 
     PageStore.set("videos");
-    export let videoId;console.log(videoId)
+    export let videoId;
     const navigate = useNavigate();
     let allvideos = [];
     let baseurl = getBaseurl();
