@@ -31,8 +31,8 @@
 
     function detecteWindowScroll(e) {
         if (
-            window.innerHeight + window.scrollY + 1 >=
-            document.body.offsetHeight
+            videoId === undefined &&
+            window.innerHeight + window.scrollY + 1 >= document.body.offsetHeight
         ) {
             loading = true;
             getVideos();
@@ -60,8 +60,8 @@
     }
 
     function getSiteIcon(videourl) {
-        if (videourl.includes("douyin.com")) return "/assets/douyin.png";
-        if (videourl.includes("kuaishou.com")) return "/assets/kuaishou.png";
+        if (videourl.includes("douyin.com")) return "assets/douyin.png";
+        if (videourl.includes("kuaishou.com")) return "assets/kuaishou.png";
         return "";
     }
 </script>
