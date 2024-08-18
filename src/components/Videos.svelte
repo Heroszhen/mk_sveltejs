@@ -4,8 +4,10 @@
     import { getBaseurl } from "../services/ToolService.js";
     import { onDestroy } from "svelte";
     import DataStore from "../stores/DataStore.js";
+    import Video from "./Video.svelte";
 
     PageStore.set("videos");
+    export let videoId;console.log(videoId)
     const navigate = useNavigate();
     let allvideos = [];
     let baseurl = getBaseurl();
@@ -58,18 +60,24 @@
     }
 
     function getSiteIcon(videourl) {
-        if (videourl.includes("douyin.com")) return "assets/douyin.png";
-        if (videourl.includes("kuaishou.com")) return "assets/kuaishou.png";
+        if (videourl.includes("douyin.com")) return "/assets/douyin.png";
+        if (videourl.includes("kuaishou.com")) return "/assets/kuaishou.png";
         return "";
     }
 </script>
+
+{#if videoId !== undefined}
+    <section id="video-modal">
+        <Video id={videoId} />
+    </section>
+{/if}
 
 <div id="videos">
     <div class="container pt-2 pb-2">
         {#each allvideos as video, index (index)}
             <div
                 class="onevideo"
-                on:click={() => navigate("/video/" + video["id"])}
+                on:click={() => navigate("/videos/" + video["id"])}
             >
                 <div class="wrap-image">
                     <img src={video.photourl} alt="" />
@@ -115,6 +123,19 @@
 </div>
 
 <style>
+    #video-modal {
+        position: fixed;
+        z-index: 100;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        max-height: 100vh;
+        overflow-y: auto;
+        background-color: white;
+        padding-top: 66px;
+    }
+
     #videos {
         min-height: calc(100vh + 10px);
     }

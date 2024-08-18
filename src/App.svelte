@@ -189,6 +189,9 @@
 		<Route path="videos">
 			<Videos />
 		</Route>
+		<Route path="videos/:id" let:params>
+			<Videos videoId={params.id} />
+		</Route>
 		<Route path="video/:id" let:params>
 			<Video id={params.id} />
 		</Route>

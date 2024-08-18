@@ -62,7 +62,7 @@
                     }
                     video = video_tmp;
                     nextvideos = json["nextvideos"];
-                    window.scrollTo(0, 0);
+                    //window.scrollTo(0, 0);
                 }
             });
     }
