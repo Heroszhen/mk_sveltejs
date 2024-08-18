@@ -60,7 +60,6 @@
                         let tab = video_tmp["videourl"].split("/");
                         video_tmp["video_id"] = tab[tab.length - 1];
                     }
-                    console.log(video_tmp);
                     video = video_tmp;
                     nextvideos = json["nextvideos"];
                     window.scrollTo(0, 0);
@@ -195,6 +194,16 @@
         resetVideo();
         resetModalVideo();
     });
+
+    function getDouyinVideoUrl(url) {
+        const regex = /\d*$/;
+        const found = url.match(regex);
+        if (found !== null) {
+            return `https://open.douyin.com/player/video?vid=${found[0]}&autoplay=1`;
+        }
+
+        return '';
+    }
 </script>
 
 <div id="video" class="pb-3">
@@ -226,6 +235,14 @@
                                 label="spanish_captions"
                             />
                         </video>
+                    {:else if video.videourl.includes("www.douyin.com")}
+                        <iframe
+                            src={getDouyinVideoUrl(video.videourl)}
+                            referrerpolicy="unsafe-url"
+                            allowfullscreen
+                            title=""
+                            id="iframe-open-douyin"
+                        ></iframe>
                     {:else}
                         <a href={video.siteurl} target="_blank">
                             <img src={video.photourl} alt="" id="image1" />
@@ -250,6 +267,7 @@
                         style="width:352px;height:621px;border-radius:12px;"
                     />
                 {/if}
+                <div class="small fst-italic p-2 text-black-50">Si la vidéo ne s'affiche pas, aller sur le site d'origine</div>
             </div>
             <div class="p-2">
                 <div class="d-flex align-items-center">
@@ -438,5 +456,10 @@
         justify-content: center;
         align-items: center;
         font-weight: bold;
+    }
+
+    iframe#iframe-open-douyin{
+        width: 324px;
+        height: 720px !important;
     }
 </style>
