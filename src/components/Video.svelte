@@ -1,7 +1,6 @@
 <script>
     import PageStore from "../stores/PageStore.js";
     //import DataStore from '../stores/DataStore.js';
-    import { afterUpdate } from "svelte";
     import { useNavigate } from "svelte-navigator";
     import {
         BoxArrowInRight,
@@ -13,9 +12,10 @@
         FullscreenExit,
         Share,
         ChevronLeft,
+        BoxArrowInLeft,
     } from "svelte-bootstrap-icons";
     import { getBaseurl, copyToClipboard } from "../services/ToolService.js";
-    import { onMount, onDestroy } from "svelte";
+    import { onMount, onDestroy, afterUpdate } from "svelte";
 
     PageStore.set("video");
     export let id;
@@ -42,6 +42,13 @@
     onMount(() => {
         body.classList.add("over");
     });
+
+    afterUpdate(() => {
+		if (video?.videotype == 6) {
+            window.instgrm?.Embeds.process();
+        }
+	});
+
     onDestroy(() => {
         body.classList.remove("over");
     });
@@ -84,7 +91,7 @@
     }
 
     function resetVideo() {
-        if (video !== null && [4, 5].includes(video.videotype)) return;
+        if (video !== null && [4, 5, 6].includes(video.videotype)) return;
         let video_dom = document.getElementsByTagName("iframe")[0];
         if (video_dom != undefined) {
             let width =
@@ -204,6 +211,12 @@
 
         return '';
     }
+
+    function reloadPlayer() {
+        const oldVideo = video;
+        video = null;
+        setTimeout(() => video = oldVideo, 500);
+    }
 </script>
 
 <div id="video" class="pb-3">
@@ -213,6 +226,7 @@
                 class="text-center"
                 class:tiktok={video.videotype == 4}
                 class:short={video.videotype == 5}
+                class:instagram={video.videotype == 6}
             >
                 {#if video.videotype == 1 || video.videotype == 4}
                     {@html video.videourl}
@@ -267,6 +281,12 @@
                         style="width:352px;height:621px;border-radius:12px;"
                     />
                 {/if}
+                {#if video.videotype == 6}
+                    <section id="instagram-wrap">
+                        {@html video.videourl}
+                    </section>
+                    
+                {/if}
                 <div class="small fst-italic p-2 text-black-50">Si la vidéo ne s'affiche pas, aller sur le site d'origine</div>
             </div>
             <div class="p-2">
@@ -279,15 +299,19 @@
                     <div class="me-3 pointer" on:click={getLink}>
                         <Share width="27" height="27" />
                     </div>
-                    <div>
-                        {#if video.videotype == 1}
+                    {#if video.videotype == 1}
+                        <div class="pointer me-3">
                             <ArrowRepeat
                                 width="40"
                                 height="40"
                                 class="pe-2 pointer"
                                 on:click={() => openModal()}
                             />
-                        {/if}
+                            
+                        </div>
+                     {/if}
+                    <div class="pointer" on:click={() => reloadPlayer()}>
+                       <BoxArrowInLeft width="30" height="30" />
                     </div>
                 </div>
                 <h4 class="fw-bold mt-2 ">{video.name}</h4>

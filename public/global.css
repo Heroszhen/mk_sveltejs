@@ -31,6 +31,14 @@ video#video1 {
 	width: auto;
 }
 
+#instagram-wrap iframe {
+	border: 5px solid black;
+	position: relative;
+	margin: 0 auto !important;
+	margin-top: -70px !important;
+	height: 728px;
+}
+
 p {
 	margin-bottom: 0.25rem !important;
 }
